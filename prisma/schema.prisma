@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Book {
+  isbn     String  @id
+  title    String
+  blurb    String?
+  authors Author[]
+  readingHistory ReadingHistory[]
+}
+
+model Author {
+  id       String @id @default(cuid())
+  name     String
+  lastname String
+  books Book[]
+}
+
+model ReadingHistory {
+  book      Book     @relation(fields: [bookIsbn], references: [isbn])
+  bookIsbn  String
+  startedReadingOn DateTime @default(now())
+  finishedReadingOn DateTime?
+  rating Int?
+
+  @@id([bookIsbn, startedReadingOn])
+}

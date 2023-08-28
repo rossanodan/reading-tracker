@@ -1,5 +1,5 @@
-import React from "react";
 import Link from "next/link";
+import React from "react";
 import { useRouter } from "next/router";
 
 const Header: React.FC = () => {
@@ -11,7 +11,7 @@ const Header: React.FC = () => {
     <div className="left">
       <Link href="/">
         <a className="bold" data-active={isActive("/")}>
-          Feed
+          Reading History
         </a>
       </Link>
       <style jsx>{`
